@@ -1,0 +1,19 @@
+<%= form_for @offer, url: task_offers_path, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <%= f.label :remark, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_area :remark, :class => 'text_area' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :amount, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :amount, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                task_offers_path, :class => 'btn' %>
+  </div>
+<% end %>

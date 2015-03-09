@@ -1,0 +1,5 @@
+<%= render "index" %>
+
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_task_offer_path(params[:task_id]),
+            :class => 'btn btn-primary' %>
