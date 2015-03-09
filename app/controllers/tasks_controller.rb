@@ -8,19 +8,23 @@ class TasksController < ApplicationController
 	end
 
 	def create
-		@task = Task.new(task_params)
+		if user_signed_in?
+			@task = Task.new(task_params)
+			@task.principal_id = current_user.id
 
-		category_ids = category_params
-		category_ids.each do |id|
-			if id != ""
-				@task.categories << Category.where("id = ?", id).first
+			category_ids = category_params
+			category_ids.each do |id|
+				if id != ""
+					@task.categories << Category.where("id = ?", id).first
+				end
 			end
-		end
 
-		if @task.save
-			redirect_to tasks_path
+			if @task.save
+				redirect_to tasks_path
+			end
+		else
+			redirect_to new_user_session_path
 		end
-		
 	end
 
 	def show
@@ -28,6 +32,14 @@ class TasksController < ApplicationController
 
 	def index
 		@tasks = Task.page(params[:page]).per(5)
+	end
+
+	def my_tasks
+		if user_signed_in?
+			@tasks = Task.where("principal_id = ?", current_user.id).page(params[:page]).per(5)
+		else
+			redirect_to new_user_session_path
+		end
 	end
 
 	def edit

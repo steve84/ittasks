@@ -7,6 +7,14 @@ class OffersController < ApplicationController
     @offers = Offer.where("task_id = ?", params[:task_id])
   end
 
+  def my_offers
+		if user_signed_in?
+	    @offers = Offer.where("user_id = ?", current_user.id)
+		else
+			redirect_to new_user_session_path
+		end
+  end
+
   # GET /offers/1
   # GET /offers/1.json
   def show
@@ -27,6 +35,7 @@ class OffersController < ApplicationController
   def create
     @offer = Offer.new(offer_params)
 		@offer.task_id = params[:task_id]
+		@offer.user_id = current_user.id
 
     respond_to do |format|
       if @offer.save

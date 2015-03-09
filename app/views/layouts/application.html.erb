@@ -50,15 +50,15 @@
           <div class="container nav-collapse">
             <ul class="nav">
               <li><%= link_to("Tasks", tasks_path()) %></li>
-            </ul>
-            <ul class="nav">
+              <li><%= link_to("My Tasks", tasks_my_tasks_path()) %></li>
+              <li><%= link_to("My Offers", offers_my_offers_path()) %></li>
+						</ul>
+            <ul class="nav pull-right">
               <li><%= link_to("Sign up", new_user_registration_path()) %></li>
-            </ul>
-            <ul class="nav">
 							<% if user_signed_in? %>
-              	<li><h1><%= current_user.id %><%= link_to("Sign out", destroy_user_session_path(), :method => :delete) %></h1></li>
+              	<li><%= link_to("Sign out", destroy_user_session_path(), :method => :delete) %></li>
 							<% else %>
-              	<li><h1><%= link_to("Log in", new_user_session_path()) %></h1></li>
+              	<li><%= link_to("Log in", new_user_session_path()) %></li>
 							<% end %>
             </ul>
           </div><!--/.nav-collapse -->
@@ -68,7 +68,7 @@
 
 		<div class="container">
 			<div class="row">
-				<div class="span12"><%= alert %></div>
+				<div class="span12"></div>
 				<div class="span12"><%= yield %><%= bootstrap_flash %></div>
 			</div>
 		</div>

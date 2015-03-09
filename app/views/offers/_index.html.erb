@@ -24,6 +24,8 @@
         <td><%= offer.user_id %></td>
         <td><%=l offer.created_at %></td>
         <td>
+          <%= link_to t('.show', :default => t("helpers.links.show")),
+                      task_path(offer.task_id), :class => 'btn btn-mini' %>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_task_offer_path(offer.task_id, offer), :class => 'btn btn-mini' %>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
