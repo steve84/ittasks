@@ -1,7 +1,8 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
-	before_action :get_all_categories, only: [:show, :edit, :update, :new]
+	before_action :get_all_categories, only: [:new]
 	before_action :get_all_offers, only: [:show]
+	before_action :get_task_categories, only: [:show, :edit, :update]
 
 	def new
 		@task = Task.new
@@ -47,6 +48,17 @@ class TasksController < ApplicationController
 
 	def update
     if @task.update(task_params)
+			db_category_ids = @categories.ids.map(&:to_s).sort
+			form_category_ids = params[:task][:category_ids].sort - [""]
+			category_ids_to_add = form_category_ids - db_category_ids
+			category_ids_to_del = db_category_ids - form_category_ids
+
+			category_ids_to_add.each() do |id|
+				@task.categories << Category.where("id = ? ", id).first
+			end
+			category_ids_to_del.each() do |id|
+				@task.categories.destroy(Category.where("id = ? ", id).first)
+			end
       redirect_to tasks_path, notice: 'Task was successfully updated.'
     else
       render :edit
@@ -71,6 +83,10 @@ class TasksController < ApplicationController
 
 		def get_all_categories
 			@categories = Category.all			
+		end
+
+		def get_task_categories
+			@categories = @task.categories
 		end
 
 		def get_all_offers

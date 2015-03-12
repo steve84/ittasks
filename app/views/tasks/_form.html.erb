@@ -18,7 +18,11 @@
     </div>
   </div>
 	<div class="checkbox">
-		<%= collection_check_boxes(:category, :id, Category.all, :id, :title) %>
+		<% if 'edit'.eql?action_name %>
+			<%= collection_check_boxes(:task, :category_ids, Category.all, :id, :title) %>
+		<% else %>
+			<%= collection_check_boxes(:category, :id, Category.all, :id, :title) %>
+		<% end %>
 	</div>
 	
 
