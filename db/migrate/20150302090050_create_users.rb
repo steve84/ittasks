@@ -33,6 +33,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string :name
 
 			t.references :location, index: true
+			t.references :role, index: true
 
       t.timestamps null: false
     end

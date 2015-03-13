@@ -3,6 +3,9 @@ class TasksController < ApplicationController
 	before_action :get_all_categories, only: [:new]
 	before_action :get_all_offers, only: [:show]
 	before_action :get_task_categories, only: [:show, :edit, :update]
+	before_action :create_task, only: :create #workaround for cancan
+
+	load_and_authorize_resource
 
 	def new
 		@task = Task.new
@@ -96,4 +99,8 @@ class TasksController < ApplicationController
     def category_params
       params[:category][:id]
     end
+
+		def create_task
+			@task = Task.new
+		end
 end

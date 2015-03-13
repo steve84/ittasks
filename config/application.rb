@@ -22,5 +22,11 @@ module Ittasks
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+
+		ADMIN_ROLE = 1
+		USER_ROLE = 2
+		ABO1_ROLE = 3
+		ABO2_ROLE = 4
+		ABO3_ROLE = 5
   end
 end

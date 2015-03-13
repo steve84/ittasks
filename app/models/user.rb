@@ -7,4 +7,15 @@ class User < ActiveRecord::Base
 	has_many :tasks
 	has_many :offers
 	has_one :location
+	has_one :role
+
+	after_create :default_role
+
+
+	private
+		def default_role
+			if self.role_id.nil?
+				self.update_attributes(:role_id => Ittasks::Application::USER_ROLE)
+			end
+		end
 end

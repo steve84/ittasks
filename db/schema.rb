@@ -131,6 +131,7 @@ ActiveRecord::Schema.define(version: 20150313095810) do
     t.string   "last_sign_in_ip"
     t.string   "name"
     t.integer  "location_id"
+    t.integer  "role_id"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
   end
@@ -138,6 +139,7 @@ ActiveRecord::Schema.define(version: 20150313095810) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["location_id"], name: "index_users_on_location_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  add_index "users", ["role_id"], name: "index_users_on_role_id", using: :btree
 
   add_foreign_key "offers", "tasks"
   add_foreign_key "offers", "users"
@@ -149,4 +151,5 @@ ActiveRecord::Schema.define(version: 20150313095810) do
   add_foreign_key "tasks", "users", column: "agent_id"
   add_foreign_key "tasks", "users", column: "principal_id"
   add_foreign_key "users", "locations"
+  add_foreign_key "users", "roles"
 end

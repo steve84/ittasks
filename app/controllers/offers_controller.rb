@@ -1,5 +1,8 @@
 class OffersController < ApplicationController
   before_action :set_offer, only: [:show, :edit, :update, :destroy]
+	before_action :create_offer, only: :create #workaround for cancan
+
+	load_and_authorize_resource
 
   # GET /offers
   # GET /offers.json
@@ -82,4 +85,8 @@ class OffersController < ApplicationController
     def offer_params
       params.require(:offer).permit(:remark, :amount)
     end
+
+		def create_offer
+	    @offer = Offer.new
+		end
 end
