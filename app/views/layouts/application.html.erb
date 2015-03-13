@@ -50,8 +50,12 @@
           <div class="container nav-collapse">
             <ul class="nav">
               <li><%= link_to("Tasks", tasks_path()) %></li>
-              <li><%= link_to("My Tasks", tasks_my_tasks_path()) %></li>
-              <li><%= link_to("My Offers", offers_my_offers_path()) %></li>
+							<% if user_signed_in? %>
+	              <li><%= link_to("My Tasks", tasks_my_tasks_path()) %></li>
+								<% if can? :create, Offer %>
+  	            	<li><%= link_to("My Offers", offers_my_offers_path()) %></li>
+								<% end %>
+							<% end %>
 						</ul>
             <ul class="nav pull-right">
               <li><%= link_to("Sign up", new_user_registration_path()) %></li>
