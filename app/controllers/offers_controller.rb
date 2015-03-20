@@ -1,5 +1,6 @@
 class OffersController < ApplicationController
   before_action :set_offer, only: [:show, :edit, :update, :destroy]
+	before_action :get_number_of_offers_per_user, only: [:show, :index]
 	before_action :create_offer, only: :create #workaround for cancan
 
 	load_and_authorize_resource
@@ -7,7 +8,6 @@ class OffersController < ApplicationController
   # GET /offers
   # GET /offers.json
   def index
-    @offers = Offer.where("task_id = ?", params[:task_id])
   end
 
   def my_offers
@@ -78,7 +78,7 @@ class OffersController < ApplicationController
 	def accept
 		if user_signed_in?
 			@task = Task.find(params[:task_id])
-			if @task.agent_id.eql?(nil) && current_user.id != @task.principal_id 
+			if @task.agent_id.eql?(nil) && current_user.id != @task.principal_id && params.keys().include?('selected_offer')
 				@offer = Offer.find(params[:selected_offer])
 				@task.agent_id = @offer.user_id
 				@task.save
@@ -101,5 +101,15 @@ class OffersController < ApplicationController
 
 		def create_offer
 	    @offer = Offer.new
+		end
+
+		def get_number_of_offers_per_user
+		  @offers = Offer.where("task_id = ?", params[:task_id])
+			@task = Task.find(params[:task_id])
+			if user_signed_in?
+				@number_of_offers = @offers.where("user_id = ?", current_user.id).count()
+			else
+				@number_of_offers = 0
+			end
 		end
 end

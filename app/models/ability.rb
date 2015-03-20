@@ -10,12 +10,12 @@ class Ability
 		elsif user.role_id == Ittasks::Application::USER_ROLE
 			can [:update, :destroy, :my_tasks], Task, :principal_id => user.id
 			can [:create, :read], Task
-			can :read, Offer
+			can [:read, :accept], Offer
 		elsif [Ittasks::Application::ABO1_ROLE, Ittasks::Application::ABO2_ROLE, Ittasks::Application::ABO3_ROLE].include?user.role_id
 			can [:update, :destroy, :my_tasks], Task, :principal_id => user.id
 			can [:create, :read], Task
 			can [:update, :destroy, :my_offers], Offer, :user_id => user.id
-			can [:read, :create], Offer
+			can [:read, :create, :accept], Offer
 		else 
 			can :read, :all
 		end

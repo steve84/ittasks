@@ -14,7 +14,7 @@
 
 <dl class="dl-horizontal">
 	<%= render partial: 'offers/index' %>
-	<% if can? :create, Offer %>
+	<% if can?(:create, Offer) && current_user.id != @task.principal_id && @number_of_offers == 0 %>
 		<%= link_to t('.new', :default => t("helpers.links.new")),
 		          new_task_offer_path(@task.id),
 		          :class => 'btn btn-primary' %>
