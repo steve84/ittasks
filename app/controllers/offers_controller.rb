@@ -76,6 +76,16 @@ class OffersController < ApplicationController
   end
 
 	def accept
+		if user_signed_in?
+			@task = Task.find(params[:task_id])
+			if @task.agent_id.eql?(nil) && current_user.id != @task.principal_id 
+				@offer = Offer.find(params[:selected_offer])
+				@task.agent_id = @offer.user_id
+				@task.save
+			else
+				redirect_to task_path(params[:task_id])
+			end
+		end
 	end
 
   private
