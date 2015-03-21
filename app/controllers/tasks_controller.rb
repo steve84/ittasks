@@ -3,6 +3,8 @@ class TasksController < ApplicationController
 	before_action :get_all_categories, only: [:new]
 	before_action :get_all_offers, only: [:show]
 	before_action :get_task_categories, only: [:show, :edit, :update]
+	before_action :get_number_of_offers_per_user, only: :show
+	before_action :get_completed_tasks, only: :completed_tasks
 	before_action :create_task, only: :create #workaround for cancan
 
 	load_and_authorize_resource
@@ -44,6 +46,10 @@ class TasksController < ApplicationController
 		else
 			redirect_to new_user_session_path
 		end
+	end
+
+	def completed_tasks
+		@tasks = @completed_tasks.page(params[:page]).per(5)
 	end
 
 	def edit
@@ -102,5 +108,20 @@ class TasksController < ApplicationController
 
 		def create_task
 			@task = Task.new
+		end
+
+		def get_number_of_offers_per_user
+		  @offers = Offer.where("task_id = ?", params[:id])
+			if user_signed_in?
+				@number_of_offers = @offers.where("user_id = ?", current_user.id).count()
+			else
+				@number_of_offers = 0
+			end
+		end
+
+		def get_completed_tasks
+			if user_signed_in?
+				@completed_tasks = Task.where("(principal_id = ? OR agent_id = ?) AND agent_id IS NOT NULL", current_user.id, current_user.id)
+			end
 		end
 end
