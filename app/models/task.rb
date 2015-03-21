@@ -8,6 +8,7 @@ class Task < ActiveRecord::Base
 	has_one :calculation
 	has_one :location
 	has_one :rating
+	has_many :attachments, as: :attachable
 
 	validates :title, presence: true
 end
