@@ -12,6 +12,8 @@ Rails.application.routes.draw do
 	get 'offers/my_offers' => 'offers#my_offers'
 	get 'tasks/my_tasks' => 'tasks#my_tasks'
 	get 'tasks/completed_tasks' => 'tasks#completed_tasks'
+	get 'calculations/my_calculations' => 'calculations#my_calculations'
+
 	post 'tasks/:task_id/offers/accept' => 'offers#accept', as: :accept_offer
 
   # Example of named route that can be invoked with purchase_url(id: product.id)

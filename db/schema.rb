@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150313095810) do
+ActiveRecord::Schema.define(version: 20150324170904) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20150313095810) do
     t.string   "state"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "task_id"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -91,14 +92,12 @@ ActiveRecord::Schema.define(version: 20150313095810) do
     t.integer  "principal_id"
     t.integer  "agent_id"
     t.integer  "location_id"
-    t.integer  "calculation_id"
     t.integer  "rating_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   add_index "tasks", ["agent_id"], name: "index_tasks_on_agent_id", using: :btree
-  add_index "tasks", ["calculation_id"], name: "index_tasks_on_calculation_id", using: :btree
   add_index "tasks", ["location_id"], name: "index_tasks_on_location_id", using: :btree
   add_index "tasks", ["principal_id"], name: "index_tasks_on_principal_id", using: :btree
   add_index "tasks", ["rating_id"], name: "index_tasks_on_rating_id", using: :btree
@@ -141,11 +140,11 @@ ActiveRecord::Schema.define(version: 20150313095810) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["role_id"], name: "index_users_on_role_id", using: :btree
 
+  add_foreign_key "calculations", "tasks"
   add_foreign_key "offers", "tasks"
   add_foreign_key "offers", "users"
   add_foreign_key "questions", "tasks"
   add_foreign_key "ratings", "tasks"
-  add_foreign_key "tasks", "calculations"
   add_foreign_key "tasks", "locations"
   add_foreign_key "tasks", "ratings"
   add_foreign_key "tasks", "users", column: "agent_id"

@@ -81,6 +81,12 @@ class OffersController < ApplicationController
 			if @task.agent_id.eql?(nil) && current_user.id == @task.principal_id && params.keys().include?('selected_offer')
 				@offer = Offer.find(params[:selected_offer])
 				@task.agent_id = @offer.user_id
+					
+				@calculation = Calculation.new
+				@calculation.state = "Open"
+				@calculation.amount = @offer.amount * 0.05
+
+				@task.calculation = @calculation
 				@task.save
 			else
 				redirect_to task_path(params[:task_id])
