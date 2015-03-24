@@ -9,6 +9,7 @@ class Task < ActiveRecord::Base
 	has_one :location
 	has_one :rating
 	has_many :attachments, as: :attachable
+	accepts_nested_attributes_for :attachments
 
 	validates :title, presence: true
 end
