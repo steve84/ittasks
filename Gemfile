@@ -38,6 +38,9 @@ gem 'twitter-bootstrap-rails'
 gem 'kaminari'
 gem 'devise'
 gem 'cancan'
+gem 'prawn'
+gem 'prawn-table'
+gem 'prawn-rails'
 gem "paperclip", "~> 4.2"
 
 group :development, :test do

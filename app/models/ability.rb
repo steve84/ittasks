@@ -11,12 +11,14 @@ class Ability
 			can [:update, :destroy, :my_tasks, :completed_tasks], Task, :principal_id => user.id
 			can [:create, :read], Task
 			can [:read, :accept], Offer
+			can [:read], Calculation
 		elsif [Ittasks::Application::ABO1_ROLE, Ittasks::Application::ABO2_ROLE, Ittasks::Application::ABO3_ROLE].include?user.role_id
 			can [:update, :destroy, :my_tasks, :completed_tasks], Task, :principal_id => user.id
 			can :completed_tasks, Task, :agent_id => user.id
 			can [:create, :read], Task
 			can [:update, :destroy, :my_offers], Offer, :user_id => user.id
 			can [:read, :create, :accept], Offer
+			can [:read], Calculation
 		else 
 			can :read, :all
 		end

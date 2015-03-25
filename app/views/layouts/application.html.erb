@@ -53,6 +53,7 @@
 							<% if user_signed_in? %>
 	              <li><%= link_to("My Tasks", tasks_my_tasks_path()) %></li>
 	              <li><%= link_to("Completed Tasks", tasks_completed_tasks_path()) %></li>
+	              <li><%= link_to("My Calculations", calculations_my_calculations_path()) %></li>
 								<% if can? :create, Offer %>
   	            	<li><%= link_to("My Offers", offers_my_offers_path()) %></li>
 								<% end %>
