@@ -13,6 +13,7 @@ Rails.application.routes.draw do
 	get 'tasks/my_tasks' => 'tasks#my_tasks'
 	get 'tasks/completed_tasks' => 'tasks#completed_tasks'
 	get 'calculations/my_calculations' => 'calculations#my_calculations'
+	get 'calculations/:id/create_pdf' => 'calculations#create_pdf', as: :create_pdf
 
 	post 'tasks/:task_id/offers/accept' => 'offers#accept', as: :accept_offer
 

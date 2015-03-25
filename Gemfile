@@ -38,6 +38,9 @@ gem 'twitter-bootstrap-rails'
 gem 'kaminari'
 gem 'devise'
 gem 'cancan'
+gem 'prawn'
+gem 'prawn-table'
+gem 'prawn-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

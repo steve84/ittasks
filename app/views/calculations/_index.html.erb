@@ -30,7 +30,7 @@
         <td>
 					<% if can? :show, task.calculation %>
 		        <%= link_to t('.show', :default => t("helpers.links.show")),
-		                    calculations_my_calculations_path(), :class => 'btn btn-mini' %>
+		                    create_pdf_path(task.calculation.id, :format => 'pdf', :filename => 'test.pdf'), :class => 'btn btn-mini' %>
 					<% end %>
         </td>
       </tr>
