@@ -27,8 +27,10 @@ class TasksController < ApplicationController
 				end
 			end
 
-			@attachment = Attachment.new(task_params['attachment'])
-			@task.attachments << @attachment
+			if task_params.keys().include?('attachment')
+				@attachment = Attachment.new(task_params['attachment'])
+				@task.attachments << @attachment
+			end
 
 
 			if @task.save
@@ -75,7 +77,9 @@ class TasksController < ApplicationController
 				@task.categories.destroy(Category.where("id = ? ", id).first)
 			end
 
-			@task.attachments.update(task_params['attachment'])
+			if task_params.keys().include?('attachment')
+				@task.attachments.update(task_params['attachment'])
+			end
       redirect_to tasks_path, notice: 'Task was successfully updated.'
     else
       render :edit
@@ -95,7 +99,7 @@ class TasksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(:description, :duration, :title, attachment: :flat)
+      params.require(:task).permit(:description, :start, :end, :title, :category_ids, attachment: :flat)
     end
 
 		def get_all_categories
