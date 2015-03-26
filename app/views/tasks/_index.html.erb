@@ -6,7 +6,8 @@
       <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:title) %></th>
       <th><%= model_class.human_attribute_name(:description) %></th>
-      <th><%= model_class.human_attribute_name(:duration) %></th>
+      <th><%= model_class.human_attribute_name(:start) %></th>
+      <th><%= model_class.human_attribute_name(:end) %></th>
       <th><%= model_class.human_attribute_name(:principal_id) %></th>
       <th><%= model_class.human_attribute_name(:agent_id) %></th>
       <th><%= model_class.human_attribute_name(:location_id) %></th>
@@ -21,7 +22,8 @@
         <td><%= link_to task.id, task_path(task) %></td>
         <td><%= task.title %></td>
         <td><%= task.description %></td>
-        <td><%= task.duration %></td>
+        <td><%= task.start %></td>
+        <td><%= task.end %></td>
         <td><%= task.principal_id %></td>
         <td><%= task.agent_id %></td>
         <td><%= task.location_id %></td>

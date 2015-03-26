@@ -8,8 +8,10 @@
   <dd><%= @task.title %></dd>
   <dt><strong><%= model_class.human_attribute_name(:description) %>:</strong></dt>
   <dd><%= @task.description %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:duration) %>:</strong></dt>
-  <dd><%= @task.duration %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:start) %>:</strong></dt>
+  <dd><%= @task.start %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:end) %>:</strong></dt>
+  <dd><%= @task.end %></dd>
   <dt><strong>Image(s):</strong></dt>
 	<% @task.attachments.each do |image| %>
 		<dd><%= image_tag image.flat.url %></dd>
