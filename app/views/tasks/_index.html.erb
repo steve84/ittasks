@@ -12,6 +12,7 @@
       <th><%= model_class.human_attribute_name(:location_id) %></th>
       <th><%= model_class.human_attribute_name(:rating_id) %></th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th>Rating</th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
@@ -27,6 +28,7 @@
         <td><%= task.location_id %></td>
         <td><%= task.rating_id %></td>
         <td><%=l task.created_at %></td>
+				<td><%= rating_for task, 'overall', :enable_half => true %></td>
         <td>
           <%= link_to t('.show', :default => t("helpers.links.show")),
                       task_path(task), :class => 'btn btn-mini' %>

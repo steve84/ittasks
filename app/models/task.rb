@@ -11,5 +11,7 @@ class Task < ActiveRecord::Base
 	has_many :attachments, as: :attachable
 	accepts_nested_attributes_for :attachments
 
+	ratyrate_rateable "overall"
+
 	validates :title, presence: true
 end

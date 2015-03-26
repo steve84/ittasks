@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
 
 	after_create :default_role
 
+	ratyrate_rater
 
 	private
 		def default_role
