@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150326120829) do
+ActiveRecord::Schema.define(version: 20150326160121) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -127,12 +127,9 @@ ActiveRecord::Schema.define(version: 20150326120829) do
   create_table "ratings", force: :cascade do |t|
     t.float    "value"
     t.text     "remark"
-    t.integer  "task_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
-
-  add_index "ratings", ["task_id"], name: "index_ratings_on_task_id", using: :btree
 
   create_table "roles", force: :cascade do |t|
     t.string   "name"
@@ -147,7 +144,6 @@ ActiveRecord::Schema.define(version: 20150326120829) do
     t.integer  "principal_id"
     t.integer  "agent_id"
     t.integer  "location_id"
-    t.integer  "rating_id"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.date     "start"
@@ -157,7 +153,6 @@ ActiveRecord::Schema.define(version: 20150326120829) do
   add_index "tasks", ["agent_id"], name: "index_tasks_on_agent_id", using: :btree
   add_index "tasks", ["location_id"], name: "index_tasks_on_location_id", using: :btree
   add_index "tasks", ["principal_id"], name: "index_tasks_on_principal_id", using: :btree
-  add_index "tasks", ["rating_id"], name: "index_tasks_on_rating_id", using: :btree
 
   create_table "tasks_technologies", id: false, force: :cascade do |t|
     t.integer "task_id"
@@ -201,9 +196,7 @@ ActiveRecord::Schema.define(version: 20150326120829) do
   add_foreign_key "offers", "tasks"
   add_foreign_key "offers", "users"
   add_foreign_key "questions", "tasks"
-  add_foreign_key "ratings", "tasks"
   add_foreign_key "tasks", "locations"
-  add_foreign_key "tasks", "ratings"
   add_foreign_key "tasks", "users", column: "agent_id"
   add_foreign_key "tasks", "users", column: "principal_id"
   add_foreign_key "users", "locations"
