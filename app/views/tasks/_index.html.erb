@@ -28,7 +28,11 @@
         <td><%= task.agent_id %></td>
         <td><%= task.location_id %></td>
         <td><%=l task.created_at %></td>
-				<td><%= rating_for task, 'overall', :enable_half => true %></td>
+				<% if user_signed_in? && task.agent_id == current_user.id %>
+					<td><%= rating_for task, 'overall', :enable_half => true %></td>
+				<% else %>
+					<td><%= rating_for task, 'overall', :enable_half => true, :disable => true %></td>
+				<% end %>
         <td>
           <%= link_to t('.show', :default => t("helpers.links.show")),
                       task_path(task), :class => 'btn btn-mini' %>

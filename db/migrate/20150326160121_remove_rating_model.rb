@@ -4,5 +4,6 @@ class RemoveRatingModel < ActiveRecord::Migration
 		remove_column :tasks, :rating_id
 		remove_foreign_key :ratings, column: :task_id
 		remove_column :ratings, :task_id
+		drop_table :ratings
   end
 end
