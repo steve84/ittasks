@@ -18,7 +18,7 @@ Rails.application.routes.draw do
 
 	post 'tasks/:task_id/offers/accept' => 'offers#accept', as: :accept_offer
 
-	resources :attachments
+	resources :attachments, :users
 
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
