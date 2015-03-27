@@ -3,14 +3,9 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:title) %></th>
-      <th><%= model_class.human_attribute_name(:description) %></th>
-      <th><%= model_class.human_attribute_name(:start) %></th>
-      <th><%= model_class.human_attribute_name(:end) %></th>
       <th><%= Calculation.human_attribute_name(:amount) %></th>
       <th><%= Calculation.human_attribute_name(:state) %></th>
-      <th><%= model_class.human_attribute_name(:principal_id) %></th>
       <th><%= model_class.human_attribute_name(:agent_id) %></th>
       <th><%= Calculation.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
@@ -19,20 +14,15 @@
   <tbody>
     <% @tasks.each do |task| %>
       <tr>
-        <td><%= link_to task.id, task_path(task) %></td>
         <td><%= task.title %></td>
-        <td><%= task.description %></td>
-        <td><%= task.start %></td>
-        <td><%= task.end %></td>
         <td><%= task.calculation.amount %></td>
         <td><%= task.calculation.state %></td>
-        <td><%= task.principal_id %></td>
-        <td><%= task.agent_id %></td>
+        <td><%= task.agent.name %></td>
         <td><%=l task.calculation.created_at %></td>
         <td>
 					<% if can? :show, task.calculation %>
 		        <%= link_to t('.show', :default => t("helpers.links.show")),
-		                    create_pdf_path(task.calculation.id, :format => 'pdf', :filename => 'test.pdf'), :class => 'btn btn-mini' %>
+		                    create_pdf_path(task.calculation.id, :format => 'pdf'), :class => 'btn btn-mini' %>
 					<% end %>
         </td>
       </tr>

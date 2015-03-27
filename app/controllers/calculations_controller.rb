@@ -13,7 +13,7 @@ class CalculationsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def get_tasks
 			if user_signed_in?
-				@tasks = Task.where('principal_id = ?', current_user.id).page(params[:page]).per(5)
+				@tasks = Task.where('principal_id = ? AND agent_id IS NOT NULL', current_user.id).joins(:calculation).page(params[:page]).per(5)
 			end
     end
 

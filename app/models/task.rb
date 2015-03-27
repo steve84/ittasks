@@ -1,6 +1,6 @@
 class Task < ActiveRecord::Base
 	belongs_to :principal, :class_name => "User" # Auftraggeber
-	has_one :agent, :class_name => "User" # Auftragnehmer
+	belongs_to :agent, :class_name => "User" # Auftragnehmer
 	has_many :offers
 	has_and_belongs_to_many :categories
 	has_and_belongs_to_many :technologies
