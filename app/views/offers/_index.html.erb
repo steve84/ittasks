@@ -6,11 +6,9 @@
 	<table class="table table-striped">
 		<thead>
 			<tr>
-			  <th><%= model_class.human_attribute_name(:id) %></th>
-			  <th><%= model_class.human_attribute_name(:remark) %></th>
+			  <th><%= Task.human_attribute_name(:title) %></th>
 			  <th><%= model_class.human_attribute_name(:amount) %></th>
-			  <th><%= model_class.human_attribute_name(:task_id) %></th>
-			  <th><%= model_class.human_attribute_name(:user_id) %></th>
+			  <th><%= Task.human_attribute_name(:principal_id) %></th>
 			  <th><%= model_class.human_attribute_name(:created_at) %></th>
 			  <th><%=t '.actions', :default => t("helpers.actions") %></th>
 			</tr>
@@ -18,11 +16,9 @@
 		<tbody>
 			<% @offers.each do |offer| %>
 				<tr>
-				  <td><%= link_to offer.id, task_offer_path(offer.task_id, offer) %></td>
-				  <td><%= offer.remark %></td>
+				  <td><%= offer.task.title %></td>
 				  <td><%= offer.amount %></td>
-				  <td><%= offer.task_id %></td>
-				  <td><%= offer.user_id %></td>
+				  <td><%= offer.task.principal.name %></td>
 				  <td><%=l offer.created_at %></td>
 				  <td>
 				    <%= link_to t('.show', :default => t("helpers.links.show")),
@@ -44,26 +40,22 @@
 		<table class="table table-striped">
 			<thead>
 				<tr>
-				  <th><%= model_class.human_attribute_name(:id) %></th>
 				  <th>Radio button</th>
-				  <th><%= model_class.human_attribute_name(:remark) %></th>
-				  <th><%= model_class.human_attribute_name(:amount) %></th>
-				  <th><%= model_class.human_attribute_name(:task_id) %></th>
-				  <th><%= model_class.human_attribute_name(:user_id) %></th>
-				  <th><%= model_class.human_attribute_name(:created_at) %></th>
-				  <th><%=t '.actions', :default => t("helpers.actions") %></th>
+					<th><%= Task.human_attribute_name(:title) %></th>
+					<th><%= model_class.human_attribute_name(:amount) %></th>
+					<th><%= Task.human_attribute_name(:principal_id) %></th>
+					<th><%= model_class.human_attribute_name(:created_at) %></th>
+					<th><%=t '.actions', :default => t("helpers.actions") %></th>
 				</tr>
 			</thead>
 			<tbody>
 				<% @offers.each do |offer| %>
 					<tr>
-					  <td><%= link_to offer.id, task_offer_path(offer.task_id, offer) %></td>
 					  <td><%= radio_button_tag(:selected_offer, offer.id) %></td>
-					  <td><%= offer.remark %></td>
-					  <td><%= offer.amount %></td>
-					  <td><%= offer.task_id %></td>
-					  <td><%= offer.user_id %></td>
-					  <td><%=l offer.created_at %></td>
+						<td><%= offer.task.title %></td>
+						<td><%= offer.amount %></td>
+						<td><%= offer.task.principal.name %></td>
+						<td><%=l offer.created_at %></td>
 					  <td>
 					    <%= link_to t('.show', :default => t("helpers.links.show")),
 					                task_path(offer.task_id), :class => 'btn btn-mini' %>
