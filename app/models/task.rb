@@ -6,7 +6,7 @@ class Task < ActiveRecord::Base
 	has_and_belongs_to_many :technologies
 	has_many :questions
 	has_one :calculation
-	has_one :location
+	has_one :location, as: :resident
 	has_one :rating
 	has_many :attachments, as: :attachable
 	accepts_nested_attributes_for :attachments

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150326160121) do
+ActiveRecord::Schema.define(version: 20150330115431) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -66,9 +66,16 @@ ActiveRecord::Schema.define(version: 20150326160121) do
     t.string   "street"
     t.string   "plz"
     t.string   "country"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.integer  "resident_id"
+    t.string   "resident_type"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.string   "city"
   end
+
+  add_index "locations", ["resident_type", "resident_id"], name: "index_locations_on_resident_type_and_resident_id", using: :btree
 
   create_table "offers", force: :cascade do |t|
     t.text     "remark"
@@ -124,13 +131,6 @@ ActiveRecord::Schema.define(version: 20150326160121) do
 
   add_index "rating_caches", ["cacheable_id", "cacheable_type"], name: "index_rating_caches_on_cacheable_id_and_cacheable_type", using: :btree
 
-  create_table "ratings", force: :cascade do |t|
-    t.float    "value"
-    t.text     "remark"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "roles", force: :cascade do |t|
     t.string   "name"
     t.text     "description"
@@ -143,7 +143,6 @@ ActiveRecord::Schema.define(version: 20150326160121) do
     t.text     "description"
     t.integer  "principal_id"
     t.integer  "agent_id"
-    t.integer  "location_id"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.date     "start"
@@ -151,7 +150,6 @@ ActiveRecord::Schema.define(version: 20150326160121) do
   end
 
   add_index "tasks", ["agent_id"], name: "index_tasks_on_agent_id", using: :btree
-  add_index "tasks", ["location_id"], name: "index_tasks_on_location_id", using: :btree
   add_index "tasks", ["principal_id"], name: "index_tasks_on_principal_id", using: :btree
 
   create_table "tasks_technologies", id: false, force: :cascade do |t|
@@ -181,14 +179,12 @@ ActiveRecord::Schema.define(version: 20150326160121) do
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
     t.string   "name"
-    t.integer  "location_id"
     t.integer  "role_id"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["location_id"], name: "index_users_on_location_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["role_id"], name: "index_users_on_role_id", using: :btree
 
@@ -196,9 +192,7 @@ ActiveRecord::Schema.define(version: 20150326160121) do
   add_foreign_key "offers", "tasks"
   add_foreign_key "offers", "users"
   add_foreign_key "questions", "tasks"
-  add_foreign_key "tasks", "locations"
   add_foreign_key "tasks", "users", column: "agent_id"
   add_foreign_key "tasks", "users", column: "principal_id"
-  add_foreign_key "users", "locations"
   add_foreign_key "users", "roles"
 end
