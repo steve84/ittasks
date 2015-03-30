@@ -5,6 +5,9 @@ class UsersController < ApplicationController
 	def index
 	end
 
+	def show
+	end
+
 	private
 		def get_users
 			@users = User.all.page(params[:page]).per(5)

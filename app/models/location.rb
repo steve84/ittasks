@@ -1,4 +1,10 @@
 class Location < ActiveRecord::Base
-	has_many :users
-	has_many :tasks
+	belongs_to :resident, polymorphic: true
+
+	geocoded_by :address
+	after_validation :geocode, :if => :street_changed?
+
+	def address
+  [street, city, country].compact.join(', ')
+	end
 end

@@ -6,7 +6,8 @@ class User < ActiveRecord::Base
 
 	has_many :tasks
 	has_many :offers
-	has_one :location
+	has_one :location, as: :resident
+	accepts_nested_attributes_for :location
 	has_one :role
 
 	after_create :default_role
