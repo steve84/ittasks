@@ -1,4 +1,7 @@
 == README
+Create ERD:
+rake erd inheritance=true attributes=foreign_keys,primary_keys,content title=false polymorphism=true orientation=vertical
+
 
 This README would normally document whatever steps are necessary to get the
 application up and running.
